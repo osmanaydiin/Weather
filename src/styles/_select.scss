@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'mixins';
+
+.select-container {
+  @include glass-effect;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  
+  .select-label-div{
+    margin-bottom: 1rem;
+
+    .select-label{
+        margin-bottom: 0.4rem;
+        display: block;
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(135, 206, 235, 0.3);
+    border-radius: 8px;
+    color: $text-color;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(135, 206, 235, 0.6);
+    }
+    
+    option {
+      background: white;
+      color: $text-color;
+    }
+  }
+} 

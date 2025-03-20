@@ -1,0 +1,248 @@
+@import 'variables';
+@import 'mixins';
+@import 'base';
+@import 'header';
+@import 'select';
+@import 'weather';
+@import 'map';
+
+// Özel efektler
+.sunrise-sunset {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.temperature {
+  &.hot {
+    color: #ff6b6b;
+  }
+  
+  &.cold {
+    color: #4dabf7;
+  }
+}
+
+// Responsive
+@media (max-width: $mobile) {
+  .App {
+    padding: 1rem;
+  }
+  
+  .weather {
+    padding: 1.5rem;
+    
+    &-info {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+}
+
+.App {
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Light mode için default background
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, $gradient-start, $gradient-end);
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  // Dark mode background
+  &.dark-mode::before {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #2C3E50;
+    transition: color 0.3s ease;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 1rem;
+
+    &.center-layout {
+      .map-section {
+        width: 100%;
+        max-width: 700px;
+        aspect-ratio: 4/3;
+      }
+
+      .weather-section {
+        display: none;
+      }
+    }
+
+    &.split-layout {
+      .map-section, .weather-section {
+        flex: 1;
+        width: 100%;
+        max-width: 700px;
+        min-width: 300px;
+        height: 500px;
+      }
+
+      .map-section {
+        &.initial-load {
+          animation: slideMapLeft 0.5s ease forwards;
+        }
+      }
+
+      .weather-section {
+        &.initial-load {
+          opacity: 0;
+          transform: translateX(20px);
+          animation: slideInRight 0.5s ease forwards;
+        }
+      }
+    }
+  }
+
+  // Dark mode için sadece renk geçişleri
+  &.dark-mode {
+    h1 {
+      color: #fff;
+    }
+
+    .weather-message {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .weather, .map-container {
+      background: rgba(255, 255, 255, 0.1);
+      transition: background 0.3s ease;
+    }
+
+    .weather {
+      &-main {
+        background: rgba(255, 255, 255, 0.05);
+        transition: background 0.3s ease;
+      }
+
+      .detail-item {
+        background: rgba(255, 255, 255, 0.05);
+        transition: background 0.3s ease;
+      }
+
+      h2, .temperature, .status {
+        color: #fff;
+        transition: color 0.3s ease;
+      }
+
+      .time, .feels-like, .label {
+        color: rgba(255, 255, 255, 0.7);
+        transition: color 0.3s ease;
+      }
+
+      .value {
+        color: #fff;
+        transition: color 0.3s ease;
+      }
+    }
+  }
+}
+
+@keyframes slideMapLeft {
+  from {
+    transform: translateX(calc(50% - 10px));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Geniş ekranlar için
+@media screen and (min-width: 1400px) {
+  .App .content-wrapper.split-layout {
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
+// Orta ekranlar için
+@media screen and (max-width: 1024px) {
+  .App {
+    .content-wrapper {
+      flex-direction: column;
+      align-items: center;
+      
+      &.split-layout {
+        .map-section, .weather-section {
+          width: 100%;
+          max-width: 800px;
+        }
+      }
+    }
+  }
+}
+
+// Mobil için responsive (768px)
+@media screen and (max-width: 768px) {
+  .App {
+    padding: 1rem;
+    
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .content-wrapper {
+      gap: 4rem;
+      padding: 0 0.5rem;
+      
+      &.split-layout {
+        .map-section, .weather-section {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Küçük mobil cihazlar için (480px)
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 0.5rem;
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .content-wrapper {
+      padding: 0;
+    }
+  }
+} 
