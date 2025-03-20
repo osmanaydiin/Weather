@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const API_URL = process.env.REACT_APP_OPEN_METEO_API_KEY;
+const API_URL = "https://api.open-meteo.com/v1/forecast";
 
 export const getWeatherData = async (lat, long) => {
     try {

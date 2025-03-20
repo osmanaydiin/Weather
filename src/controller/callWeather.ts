@@ -3,7 +3,7 @@ import { fetchWeatherApi } from 'openmeteo';
 import axios from 'axios';
 	
 
-const url = process.env.REACT_APP_OPEN_METEO_API_KEY || "APİ KEY GELEMEDİ";
+const url = "https://api.open-meteo.com/v1/forecast";
 
 var weatherDataReturn = null;
 //TODO: API KEY GÜNCELLE
