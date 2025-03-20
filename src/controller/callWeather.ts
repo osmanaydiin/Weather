@@ -6,7 +6,7 @@ import axios from 'axios';
 const url = process.env.REACT_APP_OPEN_METEO_API_KEY || "APİ KEY GELEMEDİ";
 
 var weatherDataReturn = null;
-
+//TODO: API KEY GÜNCELLE
 const getData = async (name:string, lat:number, long:number) =>{
     const param = {
         latitude:lat,

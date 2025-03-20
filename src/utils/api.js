@@ -1,6 +1,9 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
 
-const API_URL = import.meta.env.VITE_WEATHER_API_URL;
+dotenv.config();
+
+const API_URL = process.env.REACT_APP_OPEN_METEO_API_KEY;
 
 export const getWeatherData = async (lat, long) => {
     try {
