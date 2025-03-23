@@ -9,8 +9,6 @@ export const LocationProvider = ({children}) => {
     const [locationLat, setLocationLat] = useState()
     const [locationLong, setLocationLong] = useState()
 
-
-
     const values = {
         locationName, 
         setLocationName,

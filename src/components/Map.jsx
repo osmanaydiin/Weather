@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { LocationContext } from "../context/locationContext";
+import { WeatherContext } from "../context/weatherContext";
 import '../styles/_map.scss';
 
 function Map() {
@@ -8,7 +9,7 @@ function Map() {
   const markerRef = useRef(null);
 
   const {setLocationName, setLocationLat, setLocationLong} = useContext(LocationContext)
-
+  const {setIsWeatherShow} = useContext(WeatherContext)
   useEffect(() => {
     if (!window.google) {
       console.error('Google Maps not loaded');
@@ -34,6 +35,7 @@ function Map() {
         if (weatherElement) {
             weatherElement.scrollIntoView({ behavior: 'smooth' });
         }
+        setIsWeatherShow(true);
     };
 
     searchButton.onclick = scrollToWeather;
@@ -132,8 +134,7 @@ function Map() {
     // Refresh butonuna tıklandığında sayfayı yenile
     clearButton.addEventListener("click", () => {
       clear();
-      setLocationLat(0);
-      setLocationLong(0)
+      setIsWeatherShow(false);
     });
 
     searchInput.addEventListener("keypress", (e) => {

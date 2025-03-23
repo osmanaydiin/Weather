@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { LocationProvider } from './context/locationContext';
+import { WeatherProvider, WeatherContext } from './context/weatherContext';
 import NewMap from './components/NewMap'
 import Weather from './components/Weather';
 import './styles/App.scss';
@@ -9,7 +10,8 @@ function App() {
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [hasWeatherData, setHasWeatherData] = useState(false);
   const [initialLoad, setInitialLoad] = useState(true);
-
+  
+  
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
@@ -21,24 +23,25 @@ function App() {
       </button>
       <h1>How's the Weather?</h1>
       <LocationProvider>
-        <div className={`content-wrapper ${searchPerformed ? (hasWeatherData ? 'split-layout' : 'center-layout') : 'center-layout'}`}>
-          <div 
-            className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-            /* onAnimationEnd={handleAnimationEnd} */
-          >
-            <NewMap/>
+        <WeatherProvider>
+          <div className={`content-wrapper ${searchPerformed ? (hasWeatherData ? 'split-layout' : 'center-layout') : 'center-layout'}`}>
+            <div 
+              className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
+            >
+              <NewMap/>
+            </div>
+            
+              
+                <Weather 
+                  onSearchPerformed={(success) => {
+                    setSearchPerformed(true);
+                    setHasWeatherData(success);
+                  }} 
+                />
+              
+            
           </div>
-          <div 
-            className={`weather-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-          >
-            <Weather 
-              onSearchPerformed={(success) => {
-                setSearchPerformed(true);
-                setHasWeatherData(success);
-              }} 
-            />
-          </div>
-        </div>
+        </WeatherProvider>
       </LocationProvider>
     </div>
   );
