@@ -4,18 +4,6 @@ import getWeatherData from "../controller/callWeather.ts";
 import { WeatherData } from "../models/WeatherData";
 import { WeatherContext } from "../context/weatherContext";
 
-const getWeatherDescription = (code) => {
-    const weatherMap = {
-        1:  "Sunny",
-        3:  "Partial Cloudy",
-        45: "",
-        80: "Kuvvetli Sağanak Yağmur",
-        61: ""
-    };
-
-    return weatherMap[code] || "Bilinmeyen Hava Durumu";
-};  
-
 const formatTime = (timeString) => {
     if (!timeString) return "Zaman bilgisi yok";
     
@@ -45,8 +33,8 @@ const Weather = ({ onSearchPerformed }) => {
     const [currentWeather, setCurrentWeather] = useState(null);
     const [dailyWeather, setDailyWeather] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
-    const [hasWeatherData, setHasWeatherData] = useState(false);
-    const [initialLoad, setInitialLoad] = useState(true);
+    const [hasWeatherData] = useState(false);
+    const [initialLoad] = useState(true);
     const { isWeatherShow } = useContext(WeatherContext);
     useEffect(() => {
         const fetchWeather = async () => {
@@ -105,11 +93,9 @@ const Weather = ({ onSearchPerformed }) => {
     if (!searchPerformed) return null;
 
     return (
-        <div>
+        <div className={`${isWeatherShow ? 'weather-section' : ''} ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
             {isWeatherShow ? 
-                <div 
-                    className={`weather-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-                >
+                <div className={`weather-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
                     <div id="weatherValues" className="weather">
                         <h2 style={{margin:0,}} >{locationName} Weather</h2>
                         <div className="weather-main">
@@ -151,7 +137,6 @@ const Weather = ({ onSearchPerformed }) => {
                 </div>
             : null}
         </div>
-       
     );
 };
 

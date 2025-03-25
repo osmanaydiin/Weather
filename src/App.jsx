@@ -1,6 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { LocationProvider } from './context/locationContext';
-import { WeatherProvider, WeatherContext } from './context/weatherContext';
+import { WeatherProvider } from './context/weatherContext';
 import NewMap from './components/NewMap'
 import Weather from './components/Weather';
 import './styles/App.scss';
@@ -9,7 +9,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [hasWeatherData, setHasWeatherData] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
+  const [initialLoad] = useState(true);
   
   
   const toggleDarkMode = () => {
@@ -25,20 +25,16 @@ function App() {
       <LocationProvider>
         <WeatherProvider>
           <div className={`content-wrapper ${searchPerformed ? (hasWeatherData ? 'split-layout' : 'center-layout') : 'center-layout'}`}>
-            <div 
-              className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-            >
+            <div className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
               <NewMap/>
             </div>
-            
               
-                <Weather 
-                  onSearchPerformed={(success) => {
-                    setSearchPerformed(true);
-                    setHasWeatherData(success);
-                  }} 
-                />
-              
+            <Weather 
+              onSearchPerformed={(success) => {
+                setSearchPerformed(true);
+                setHasWeatherData(success);
+              }} 
+            />
             
           </div>
         </WeatherProvider>
