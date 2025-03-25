@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/locationContext";
-import getWeatherData from "../controller/callWeather.ts";
+import getWeatherData from "../controller/callWeather.js";
 import { WeatherData } from "../models/WeatherData";
 import { WeatherContext } from "../context/weatherContext";
 
@@ -110,7 +110,7 @@ const Weather = ({ onSearchPerformed }) => {
                             </div>
                             <div className="right-section">
                                 <img 
-                                    src={require(`../images/weather-status/${currentWeather.status}.png`)}
+                                    src={require(`../../public/images/weather-status/${currentWeather.status}.png`)}
                                     alt={currentWeather.status}
                                     className="weather-icon"
                                 />
@@ -122,7 +122,7 @@ const Weather = ({ onSearchPerformed }) => {
                                 <div key={index} className="forecast-item">
                                     <p styleName='' className="day">{formatTime(day.time).split(' ')[0]}</p>
                                     <img 
-                                        src={require(`../images/weather-status/${day.status}.png`)}
+                                        src={require(`../../public/images/weather-status/${day.status}.png`)}
                                         alt={day.status}
                                         className="forecast-icon"
                                     />
