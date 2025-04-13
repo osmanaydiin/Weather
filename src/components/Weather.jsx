@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { LocationContext } from "../context/locationContext";
-import getWeatherData from "../controller/callWeather.ts";
+import getWeatherData from "../controller/callWeather.js";
 import { WeatherData } from "../models/WeatherData";
 import { WeatherContext } from "../context/weatherContext";
-
 
 const formatTime = (timeString) => {
     if (!timeString) return "Zaman bilgisi yok";
@@ -34,8 +33,8 @@ const Weather = ({ onSearchPerformed }) => {
     const [currentWeather, setCurrentWeather] = useState(null);
     const [dailyWeather, setDailyWeather] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
-    const [hasWeatherData, setHasWeatherData] = useState(false);
-    const [initialLoad, setInitialLoad] = useState(true);
+    const [hasWeatherData] = useState(false);
+    const [initialLoad] = useState(true);
     const { isWeatherShow } = useContext(WeatherContext);
     useEffect(() => {
         const fetchWeather = async () => {
@@ -94,11 +93,9 @@ const Weather = ({ onSearchPerformed }) => {
     if (!searchPerformed) return null;
 
     return (
-        <div>
+        <div className={`${isWeatherShow ? 'weather-section' : ''} ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
             {isWeatherShow ? 
-                <div 
-                    className={`weather-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-                >
+                <div className={`weather-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
                     <div id="weatherValues" className="weather">
                         <h2 style={{margin:0,}} >{locationName} Weather</h2>
                         <div className="weather-main">
@@ -113,7 +110,7 @@ const Weather = ({ onSearchPerformed }) => {
                             </div>
                             <div className="right-section">
                                 <img 
-                                    src={require(`../images/weather-status/${currentWeather.status}.png`)}
+                                    src={require(`../../public/images/weather-status/${currentWeather.status}.png`)}
                                     alt={currentWeather.status}
                                     className="weather-icon"
                                 />
@@ -125,7 +122,7 @@ const Weather = ({ onSearchPerformed }) => {
                                 <div key={index} className="forecast-item">
                                     <p styleName='' className="day">{formatTime(day.time).split(' ')[0]}</p>
                                     <img 
-                                        src={require(`../images/weather-status/${day.status}.png`)}
+                                        src={require(`../../public/images/weather-status/${day.status}.png`)}
                                         alt={day.status}
                                         className="forecast-icon"
                                     />
@@ -140,7 +137,6 @@ const Weather = ({ onSearchPerformed }) => {
                 </div>
             : null}
         </div>
-       
     );
 };
 
