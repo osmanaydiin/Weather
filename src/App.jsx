@@ -25,21 +25,16 @@ function App() {
       <LocationProvider>
         <WeatherProvider>
           <div className={`content-wrapper ${searchPerformed ? (hasWeatherData ? 'split-layout' : 'center-layout') : 'center-layout'}`}>
-            <div 
-              className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}
-            >
+            <div className={`map-section ${initialLoad && hasWeatherData ? 'initial-load' : ''}`}>
               <NewMap/>
             </div>
             
-              
-                <Weather 
-                  onSearchPerformed={(success) => {
-                    setSearchPerformed(true);
-                    setHasWeatherData(success);
-                  }} 
-                />
-              
-            
+            <Weather 
+              onSearchPerformed={(success) => {
+                setSearchPerformed(true);
+                setHasWeatherData(success);
+              }} 
+            />
           </div>
         </WeatherProvider>
       </LocationProvider>

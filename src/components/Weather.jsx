@@ -4,17 +4,6 @@ import getWeatherData from "../controller/callWeather.ts";
 import { WeatherData } from "../models/WeatherData";
 import { WeatherContext } from "../context/weatherContext";
 
-const getWeatherDescription = (code) => {
-    const weatherMap = {
-        1:  "Sunny",
-        3:  "Partial Cloudy",
-        45: "",
-        80: "Kuvvetli Sağanak Yağmur",
-        61: ""
-    };
-
-    return weatherMap[code] || "Bilinmeyen Hava Durumu";
-};  
 
 const formatTime = (timeString) => {
     if (!timeString) return "Zaman bilgisi yok";
